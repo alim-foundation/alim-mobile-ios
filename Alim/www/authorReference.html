@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+				<meta charset="utf-8" />
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>goto_hadith</title>
+		<meta name="description" content="" />
+		<meta name="author" content="Manish" />
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<script type="text/javascript" src="sw/spinningwheel.js"></script>
+		<link rel="stylesheet" href="sw/spinningwheel.css" />
+		<script src="js/jquery1.6.4.js"></script>
+		<link rel="stylesheet" href="js/jquery1.01.css" />
+		<script src="js/jquery1.01.js"></script>
+		<script src="js/webserviceclient.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+	
+		<script type="text/javascript">
+			
+            
+			var surahIndex =""; 
+			var author ="";
+            var surahName="";
+            
+			function onBodyLoad() {
+				document.addEventListener("deviceready", onDeviceReady, false);
+			}
+
+			function getDataFromServer() {
+                         
+                surahIndex = getParameterByName("surah_number");
+                author = getParameterByName("author_name");
+                surahName= arr_surahname[parseInt(surahIndex)];
+                $("#contentTitle").html("Surah "+surahIndex+" , "+surahName+"<br/>"+"Author:"+author);
+                getReference(surahIndex,author);
+                                                 
+                   
+			}
+            
+            
+
+            function getParameterByName(name){
+                name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+                                      var regexS = "[\\?&]" + name + "=([^&#]*)";
+                                      var regex = new RegExp(regexS);
+                                      var results = regex.exec(window.location.search);
+                                      if(results == null)
+                                      return "";
+                                      else
+                                      return decodeURIComponent(results[1].replace(/\+/g, " "));
+                                      }
+			
+		</script>
+	</head>
+
+	<body onload="getDataFromServer();" style="background-image:url(images/alimorgbottomtile.jpg)">
+		<div data-role="page" style="background-image:url(images/alimorgbottomtile.jpg)" id="goto-hadith-module">
+			<div data-role="header" data-theme="a">
+				<a href=" javascript: history.go(-1);" data-theme="b" rel="external">Back</a>
+				<h1>GoTo Qur'an</h1>
+			</div>
+			<div data-role="content" style="text-align: left; z-index:10; color:#000000 ; text-shadow:none ">
+                <div id="contentTitle" style="font-size:18px ;font-weight:bold"> </div>
+                <div id="authorReference"></div>
+				</div>
+			</div>
+	</body>
+</html>

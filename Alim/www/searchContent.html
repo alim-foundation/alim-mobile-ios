@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<script src="js/jquery1.6.4.js"></script>
+<link rel="stylesheet" href="js/jquery1.01.css" />
+<script src="js/jquery1.01.js"></script>
+<script type="text/javascript">
+var searchParameter;
+function getParametersss()
+{
+	alert("me");
+    searchParameter=getParameterByName('a');
+    alert(searchParameter);
+}
+function getParameterByName(name){
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+                          var regexS = "[\\?&]" + name + "=([^&#]*)";
+                          var regex = new RegExp(regexS);
+                          var results = regex.exec(window.location.search);
+                          if(results == null)
+                          return "";
+                          else
+                          return decodeURIComponent(results[1].replace(/\+/g, " "));
+                          }
+</script>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+
+<body onload="searchParametersss();"  style="background-image: url(images/alimorgbottomtile.jpg)">
+<div data-role="page"  style="background-image: url(images/alimorgbottomtile.jpg)" id="advance-search-module">
+<div data-role="header" data-theme="a"><a href=" javascript: history.go(-1);" rel="external" data-theme="b">Back</a>
+<a href="#" onclick="getCategories();" data-theme="b">Done</a>
+<h1>Advance Search</h1>
+</div>
+<div data-role="content" data-scroll="true" > 
+</div>
+</body>
+</html>

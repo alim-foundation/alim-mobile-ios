@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+		<meta name="description" content="Mobiscroll is a scroller style date/time picker optimized for touch devices such as iPhone, iPad, Android, to easily enter date and/or time. It's easily customizable and comes with very nice pre-defined themes: iOS, Android, Sense UI, Default."/>
+		<meta name="keywords" content="jQuery, JavaScript, datepicker, timepicker, touchscreen, Webkit, android, iPhone, iPad, webapps, GalaxyTab, dropdown, mobile, wheel, senseui, wheel, barrel, scroller-style, clickpick"/>
+		<title>Mobiscroll</title>
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<title>Mobiscroll</title>
+		<script src="js/jquery-1.7.1.js"></script>
+		<script src="js/mobiscroll-1.6.min.js" type="text/javascript"></script>
+		<link href="css/mobiscroll-1.6.min.css" rel="stylesheet" type="text/css" />
+		<style type="text/css">
+			html {
+				height: 100%;
+			}
+			body {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				font-family: arial, verdana, sans-serif;
+				font-size: 12px;
+				background: #EEE;
+				color: #11283A;
+			}
+			label {
+				display: block;
+			}
+			select {
+				width: 100%;
+				padding: .5em;
+				margin-bottom: .5em;
+				border: 1px solid #aaa;
+				text-shadow: none;
+			}
+			input {
+				width: 100%;
+				padding: .5em;
+				border: 1px solid #aaa;
+			}
+			h1 {
+				font-size: 26px;
+				line-height: 30px;
+				margin: 0 0 1em 0;
+			}
+			#s {
+				width: 30%;
+				height: 100%;
+				float: left;
+				text-shadow: #fff 1px 1px 1px;
+			}
+			#si {
+				height: 100%;
+				border-right: 1px solid #aaa;
+				background: #ddd;
+				box-shadow: 0 0 10px #555;
+			}
+			#sii {
+				padding: 1em;
+			}
+			#c {
+				width: 70%;
+				min-height: 100%;
+				float: right;
+				text-shadow: #fff 1px 1px 1px;
+				position: relative;
+			}
+			#ci {
+				padding: 1em 2.2em 260px 1em;
+				overflow: hidden;
+			}
+			#h, #o {
+				display: none;
+			}
+			.desc {
+				display: none;
+			}
+			.dww img {
+				margin: 5px 30px;
+			}
+			@media (max-width: 600px) {
+
+				#s {
+					position: absolute;
+					top: 31px;
+					height: 0;
+					overflow: hidden;
+					width: 100%;
+					-webkit-transition: height 0.2s linear;
+					-moz-transition: height 0.2s linear;
+					-ms-transition: height 0.2s linear;
+				}
+				#s.sv {
+					height: 250px;
+				}
+				#si {
+					height: auto;
+					border: 1px solid #aaa;
+					margin: 1em;
+				}
+				#c {
+					width: 100%;
+				}
+				#h, #o {
+					display: block;
+					background: #ccc;
+					text-align: center;
+					cursor: pointer;
+					padding: 0 .5em;
+					line-height: 30px;
+				}
+				#o {
+					position: absolute;
+					top: 1em;
+					right: 1em;
+					border: 1px solid #aaa;
+				}
+			}
+
+		</style>
+		<script type="text/javascript">
+			$(function() {
+
+				var group = {};
+
+				var wheels = [group];
+
+				for(var i = 1; i < 4; i++) {
+
+					var wheel = {};
+
+					for(var j = 0; j < 100; j++) {
+
+						wheel[j] = '<img src="img/fruit-' + (j % 5 + 1) + '.png" />'
+
+					}
+
+					group['Fruit ' + i] = wheel;
+
+				}
+
+				$('#t, #m, #p').change(function() {
+
+					if($('#p').val() == 'cust')
+
+						$('#i').val('').scroller('destroy').scroller({
+							theme : $('#t').val(),
+							mode : $('#m').val(),
+							wheels : wheels,
+							width : 100,
+							height : 40
+						});
+					
+else
+
+						$('#i').val('').scroller('destroy').scroller({
+							preset : $('#p').val(),
+							theme : $('#t').val(),
+							mode : $('#m').val()
+						});
+
+					$('.desc').hide();
+
+					$('#' + $('#p').val() + '_desc').show();
+
+				});
+
+				$('#t').change();
+
+				$('#o').click(function() {
+
+					$('#s').addClass('sv');
+
+				});
+
+				$('#h').click(function() {
+
+					$('#s').removeClass('sv');
+
+				});
+			});
+			var _gaq = _gaq || [];
+
+			_gaq.push(['_setAccount', 'UA-2009735-10']);
+
+			_gaq.push(['_setDomainName', 'mobiscroll.com']);
+
+			_gaq.push(['_setAllowHash', 'false']);
+
+			_gaq.push(['_trackPageview']); (function() {
+
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(ga, s);
+
+			})();
+
+		</script>
+	</head>
+	<body>
+		<div id="s">
+			<div id="si">
+				<div id="sii">
+					<label for="t">Theme</label>
+					<select name="t" id="t">
+						<option value="ios">iOS</option>
+						<option value="default">Default</option>
+						<option value="android-ics">Android ICS (New)</option>
+						<option value="android-ics light">Android ICS Light (New)</option>
+						<option value="android">Android</option>
+						<option value="sense-ui">Sense UI</option>
+					</select>
+					<label for="m">Mode</label>
+					<select name="m" id="m">
+						<option value="scroller">Scroller</option>
+						<option value="clickpick">Clickpick</option>
+						<option value="mixed">Mixed (New)</option>
+					</select>
+					<label for="p">Demo</label>
+					<select name="p" id="p">
+						<option value="date">Date</option>
+						<option value="time">Time</option>
+						<option value="datetime">Date &amp; Time</option>
+						<option value="cust">Fruits</option>
+					</select>
+				</div>
+				<div id="h">
+					Done
+				</div>
+			</div>
+		</div>
+		<div id="c">
+			<div id="o">
+				Options
+			</div>
+			<div id="ci">
+				<h1>Mobiscroll</h1>
+				<label for="i">Click here to try</label>
+				<input name="i" id="i" />
+				<div id="date_desc" class="desc">
+					<h2>Date</h2>
+					<p>
+						Date picker with default behaviour.
+					</p>
+				</div>
+				<div id="time_desc" class="desc">
+					<h2>Time</h2>
+					<p>
+						Time only picker.
+					</p>
+				</div>
+				<div id="datetime_desc" class="desc">
+					<h2>Date &amp; Time</h2>
+					<p>
+						Date & Time picker to easily select both the date and the time.
+					</p>
+				</div>
+				<div id="cust_desc" class="desc">
+					<h2>Fruits</h2>
+					<p>
+						Custom scroller with images. Everybody likes fruits...
+					</p>
+				</div>
+			</div>
+			<div id="social" style="position:absolute;bottom:0;width:100%;">
+				<div style="padding:0 5px;">
+					<div id="facebook" style="float:left;">
+						<iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FMobiscroll%2F226962304011802&amp;width=292&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=false&amp;height=62" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
+					</div>
+					<div id="twitter" style="float:left;padding:21px 0 21px 10px;">
+						<a href="http://twitter.com/mobiscroll" class="twitter-follow-button">Follow @mobiscroll</a>
+						<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+					</div>
+					<div id="googleplus" style="float:left;padding:19px 0 19px 10px;">
+						<g:plusone></g:plusone>
+						<script type="text/javascript">
+							function() {
+
+								var po = document.createElement('script');
+								po.type = 'text/javascript';
+								po.async = true;
+
+								po.src = 'https://apis.google.com/js/plusone.js';
+
+								var s = document.getElementsByTagName('script')[0];
+								s.parentNode.insertBefore(po, s);
+
+							})();
+
+						</script>
+					</div>
+					<div id="stickaz" style="float:left;padding:0 0 0 10px;line-height:65px;">
+						Awesome images from <a href="http://www.stickaz.com/en/16-tutti-frutti" target="_blank">stickaz.com</a>
+					</div>
+					<div style="clear:both;"></div>
+				</div>
+				<div></div>
+	</body>
+</html>

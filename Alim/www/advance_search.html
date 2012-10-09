@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <meta name="viewport"
+        content="width=device-width, minimum-scale=1, maximum-scale=1">
+        <head>
+            <script src="js/jquery1.6.4.js"></script>
+            <link rel="stylesheet" href="js/jquery1.01.css" />
+            <script src="js/jquery1.01.js"></script>
+            <script type="text/javascript">
+                var categories="";
+                var books="";
+                function preventBehavior(e) {
+                    //e.preventDefault();
+                };
+                
+                function getCategories()
+                {
+                    categories="";
+                    $('#divCategories :checkbox:checked').each(function() {
+                    categories=categories+"+"+$(this).val();
+                    alert(categories);
+                    getBooks();
+                }
+                function getBooks()
+                {
+                    books="";
+                    $('#divBooks :checkbox:checked').each(function() {
+                    books=books+"+"+$(this).val();
+                    });
+                    alert(books);
+                }
+                </script>
+        </head>
+        <body style="background-image: url(images/alimorgbottomtile.jpg)">
+            <div data-role="page"  style="background-image: url(images/alimorgbottomtile.jpg)" id="advance-search-module">
+                <div data-role="header" data-theme="a"><a href=" javascript: history.go(-1);" rel="external" data-theme="b">Back</a>
+                    <a href="#" onclick="getCategories();" data-theme="b">Done</a>
+                    <h1>Advance Search</h1>
+                </div>
+                <div data-role="content" data-scroll="true" >
+                    <div class="ui-grid-a" data-inset='true' data-theme='d' data-dividertheme='b' >
+                        <div data-role="fieldset" >
+                            <fieldset data-role="controlgroup" ><legend>Please Select the Category:</legend> 
+                                <div id="t">sample</div>
+                                <div id="divCategories">
+                                    <input type="checkbox" name="checkbox-1a" value="quran" id="checkbox-1a" class="custom" /> 
+                                    <label for="checkbox-1a">Quran</label>
+                                    <input type="checkbox" name="checkbox-2a"  value="hadith" id="checkbox-2a" class="custom" />
+                                    <label for="checkbox-2a">Hadith</label> 
+                                    <input type="checkbox" name="checkbox-3a"  value="fiqh" id="checkbox-3a" class="custom" />
+                                    <label for="checkbox-3a">figh</label> 
+                                    <input type="checkbox" name="checkbox-4a"  value="islam" id="checkbox-4a" class="custom" /> 
+                                    <label for="checkbox-4a">Islam</label> 
+                                    <input type="checkbox" name="checkbox-5a"  value="biographies" id="checkbox-5a" class="custom" /> 
+                                    <label for="checkbox-5a">Biographies</label>
+                                    <input type="checkbox" name="checkbox-6a"  value="group" id="checkbox-6a" class="custom" /> 
+                                    <label for="checkbox-6a">Group</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div data-role="fieldset" >
+                            <fieldset data-role="controlgroup"><legend>Please
+                                Select the Books:</legend> 
+                                <div id="divBooks">
+                                    <input type="checkbox"  value="1" name="checkbox-b1a" id="checkbox-b1a" class="custom" />
+                                    <label for="checkbox-b1a">Asad Translation</label> 
+                                    <input type="checkbox" value="2" name="checkbox-b2a" id="checkbox-b2a" class="custom" /> 
+                                    <label for="checkbox-b2a">MALPickthall Translation</label> 
+                                    <input type="checkbox" value="3" name="checkbox-b3a" id="checkbox-b3a" class="custom" /> 
+                                    <label for="checkbox-b3a">YATSurah Introduction</label> 
+                                    <input type="checkbox" value="4" name="checkbox-b4a" id="checkbox-b4a" class="custom" />
+                                    <label for="checkbox-b4a">AYQur'an Commentary</label> 
+                                    <input type="checkbox" value="5" name="checkbox-b5a" id="checkbox-b5a" class="custom" />
+                                    <label for="checkbox-b5a">TLTAl-Muwatta Hadith</label> 
+                                    <input type="checkbox" value="6" name="checkbox-b6a" id="checkbox-b6a" class="custom" /> 
+                                    <label for="checkbox-b6a">HDQAl-Tirmidhi Hadith</label> 
+                                    <input type="checkbox" value="7" name="checkbox-b7a" id="checkbox-b7a" class="custom" /> 
+                                    <label for="checkbox-b7a">ASDMalik Translation</label> 
+                                    <input type="checkbox" value="8" name="checkbox-b8a" id="checkbox-b8a" class="custom" />
+                                    <label for="checkbox-b8a"> PIKYusuf Ali Translation</label> 
+                                    <input type="checkbox" value="9" name="checkbox-b9a" id="checkbox-b9a" class="custom" /> 
+                                    <label for="checkbox-b9a">QSIAyah Themes </label> 
+                                    <input type="checkbox" value="10" name="checkbox-b10a" id="checkbox-b10a" class="custom" />
+                                    <label for="checkbox-b10a">QCCTransilitration</label> 
+                                    <input type="checkbox" value="11" name="checkbox-b11a" id="checkbox-b11a" class="custom" />
+                                    <label for="checkbox-b11a">AMHAl-Qudsi Hadith</label> 
+                                    <input type="checkbox" value="12" name="checkbox-b12a" id="checkbox-b12a" class="custom" />
+                                    <label for="checkbox-b12a">TIRSahih Al-Bukhari Hadith</label>
+                                </div></fieldset>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </body>
+</html>

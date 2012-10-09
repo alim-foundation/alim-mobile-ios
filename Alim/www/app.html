@@ -1,0 +1,77 @@
+
+<!DOCTYPE html> 
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>Multi-page template</title> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+</head> 
+
+	
+<body> 
+
+<!-- Start of first page: #one -->
+<div data-role="page" id="one" data-theme="b">
+	<div data-role="header">
+    	<img src="images/header.png" width="100%"/>
+	</div><!-- /header -->
+	
+	<div data-role="content" >	
+		<H2>Service Center Locator</H2>
+
+		Bosch Car Service
+		<div data-role="fieldcontain">
+			
+				<label for="select-State" class="select">Choose State:</label>
+				<select name="select-State" id="statesNameDropDown" onchange="stateChange(this)"></select>
+				
+				<div id="divCities">
+					<label for="select-City" class="select">Choose City:</label>
+					<select id="citiesNameDropDown" onchange="selectCity(this)"></select>
+				</div>
+				
+				<div id="dealerDetails">
+					<label for="select-Dealer" class="select">Choose Dealer:</label>
+					<select id="dealerNameDropDown" onchange="selectDealer(this)"></select>
+					<p><a href="#popup"data-role="button" data-rel="dialog" data-transition="pop">Show page "popup" (as a dialog)</a></p>
+				</div>
+		</div>
+	</div>
+	<div data-role="footer" data-position="fixed" >
+        <img src="images/bosch_ad.png" width="100%"/>
+	</div>
+</div><!-- /page one -->
+
+<!-- Start of third page: #popup -->
+<div data-role="page" id="popup">
+
+	<div data-role="header" data-theme="e">
+		<h1>Dialog</h1>
+	</div><!-- /header -->
+
+	<div data-role="content" data-theme="d">	
+		<h2>Popup</h2>
+
+		      <div id="dealer_Name_Div">sdfgdsg</div>
+			  <div id="dealerAddress_Line_1_Div">dfgsdfg</div>
+			  <div id="dealerAddress_Line_2_Div">sfdgdsfg</div>
+			  <div id="dealer_city_Div">sdfgdsfg</div>
+			  <div id="dealer_state_Div"></div>
+			  <div id="dealer_pincode_Div"></div>
+			  <div id="dealer_contact_person_Div"></div>
+			  <div id="dealer_phone_number_NameDiv"></div>
+			  <div id="dealer_alternate_number_NameDiv"></div>
+			  <div id="dealer_email_Div"></div>
+			  <div id="dealer_description_Div"></div>
+			  <div id="dealer_services_offered_Div">sfgdsfg</div>
+		<p><a href="#one" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to page "one"</a></p>	
+	</div><!-- /content -->
+	
+</div><!-- /page popup -->
+
+</body>
+</html>

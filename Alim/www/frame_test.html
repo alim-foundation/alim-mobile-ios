@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        <script src="js/jquery1.6.4.js"></script>
+        <link rel="stylesheet" href="js/jquery1.01.css" />
+        <script src="js/jquery1.01.js"></script>
+        <script src="js/webserviceclient.js" type="text/javascript"></script>
+	</head>
+    <style>
+        
+        #fixed1
+        {
+            
+            position: fixed;   
+            top:0;
+        }
+        </style>
+    <script>
+        
+        function doThis(){
+            alert('calling');
+         $("[data-role=header]").fixedtoolbar({ tapToggle: false });
+            $("[data-role=header]").fixedtoolbar({ visibleOnPageShow: true });
+            alert('called');
+        
+        }
+        
+        
+        </script>
+	<body onload="doThis();">
+        
+		<div data-role="page" style="position:absolute;">
+			<div data-role="header" id="fixed1"  data-position="fixed" data-theme="e">
+				<a href=" javascript: history.go(-1);" rel="external">Back</a>
+				<h1>GoTo Qur'an</h1>
+			</div>
+			<div data-role="content" style="text-align: left; z-index:10; color:#ff0000 ; text-shadow:none ">
+				this is a sample text line , adnd now this line will be repeated...
+                this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...this is a sample text line , adnd now this line will be repeated...
+				</div>
+			</div>
+	</body>
+</html>

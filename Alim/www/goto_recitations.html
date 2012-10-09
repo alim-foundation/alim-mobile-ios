@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+    Remove this if you use the .htaccess -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>goto_hadith</title>
+    <meta name="description" content="" />
+    <meta name="author" content="Manish" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+    <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <script src="js/webserviceclient.js" type="text/javascript"></script>
+    
+    <script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
+    <script type="text/javascript" src="sw/spinningwheel.js"></script>
+    <link rel="stylesheet" href="sw/spinningwheel.css" />
+    <script type="text/javascript" src="js/jquery.mobile-1.0a1.min.js"></script>
+    <link rel="stylesheet" href="css/jquery.mobile-1.0a1.min.css" />
+    <script type="text/javascript" src="js/main.js"></script>
+        
+    </head><!--
+    <body onload="get_recitations(1,1,'prabhjot')">
+     --><body style="background-image:url(images/alimorgbottomtile.jpg);background-color:red;">
+    <div data-role="page" style="background-image:url(images/alimorgbottomtile.jpg)" id="goto_quran">
+        <div data-role="header" data-theme="a" data-scroll="true">
+            <a href=" javascript: history.go(-1);" rel="external"  data-theme="b">Back</a>
+            <h1>Recitations</h1>
+        </div>
+        <div data-role="content" style="text-align: center; z-index:10 ">   
+        
+            <div >
+                <input type="button" value="Surah:" id="btnSelectSurah" data-theme="b" onclick="getSurahValue()">
+                </input>
+                <div id="ayahValueTag" style="text-shadow:none; color:#000000;">
+                    ---
+                </div>
+                <input type="text" id="SelectAyahEditTextBox" data-theme="b" placeholder="Ayah:" />
+                </br>
+                <input type="button" value="Reciter" id="btnSelectReciter" data-theme="b" onclick="getReciterValue()">
+                
+                <input type="button" value="Go" id="btnLaunchStreaming" data-theme="b" onclick="launchStreaming()">
+                </input>
+                
+                </br></br>
+                <div id="player" style="text-shadow:none, color:#ffffff"></div>
+                
+            </div>
+    </body>
+    
+<script>
+    
+    var surahIndex_recitations="";
+    var ayahIndex_recitations="";
+    var reciterIndex="";
+    
+    
+    //function to show the reciter names in the picker
+    
+    function getReciterValue(){
+        if(surahIndex_recitations==""){
+            alert('Please select Surah.');
+        }else{
+    // check wether user has selected ayah
+        ayahIndex_recitations = $("#SelectAyahEditTextBox").val();
+        if(!ayahIndex_recitations){
+        alert('Please enter Ayah value.');
+        return;
+        }else{
+        SpinningWheel.addSlot({
+                              1 :'Abdul Basit Mujawwad',
+                              2 :'Abdul Basit Murattal',
+                              3 :'Abdullah Basfar',
+                              4 :'Abdurrahmaan As-Sudais',
+                              5 :'Abu_BakrAsh-Shaatree',
+                              6 :'Hudhaify',
+                              7 :'Husary Mujawwad',
+                              8 :'Minshawy Mujawwad',
+                              9 :'Hani Rifai',
+                              10 :'Minshawy Murattal',
+                              11 :'Alafasy',
+                              12 :'Muhammad',
+                              13 :'Saood ash-Shuraym',
+                              });
+        
+        SpinningWheel.setCancelAction(cancel);
+        SpinningWheel.setDoneAction(doneReciterSelection);
+        SpinningWheel.open();
+            
+            }
+        }
+        
+    }
+    
+    function doneReciterSelection(){
+        var results = SpinningWheel.getSelectedValues();
+        //$("#myButton").prev('a').find('span.ui-btn-text').text("new text 2");
+        $("#btnSelectReciter").prev('a').find('span.ui-btn-text').text(results.values.join(' '));
+        reciterIndex = results.keys.join(' ');
+        
+    }
+    
+    function checkSuarhValidation(){
+
+    if(surahIndex_recitations==""){
+            alert('Please select Surah.');
+        }else{
+            
+        }
+    }
+    
+    function launchStreaming(){
+         ayahIndex_recitations = $("#SelectAyahEditTextBox").val();
+        if(!surahIndex_recitations){
+            alert('Please select a Surah');
+        } else if(!ayahIndex_recitations){
+            alert('Please enter an Ayah.');
+        }else if(!reciterIndex){
+            alert('Please select a Reciter');
+        }else{
+            ayahMaxCount = ayah[parseInt(surahIndex_recitations)];
+            if(parseInt(ayahIndex_recitations)>ayahMaxCount){
+                alert('Please enter Ayah within range specified');
+            }else{
+        
+        get_recitations(surahIndex_recitations,ayahIndex_recitations,reciterIndex,"player");
+            }
+        }
+    }
+    
+    function errorFallback(){
+        alert('Unable to play the stream at the moment.');
+    }
+    
+    function checkSuarhValidation(){
+        if(surahIndex==""){
+            alert('Please select Surah value.');
+        }
+//            
+    }
+    
+    function getSurahValue() {
+        
+       
+        
+        /**
+         * Adding entries for the Surah Spinner Wheel
+         */
+        SpinningWheel.addSlot({
+                              1 : 'Al-Fathiha',
+                              2 : 'Al-Baqara',
+                              3 : 'Al-iImran',
+                              4 : 'An-Nisaa',
+                              5 : 'Al-Maida',
+                              6 : 'Al-Anam',
+                              7 : 'Al-Araf',
+                              8 : 'Al-Anfal',
+                              9 : 'At-Tauba',
+                              10 : 'Yunus',
+                              11 : 'Hud',
+                              12 : 'Yusuf',
+                              13 : 'Ar-Rad',
+                              14 : 'Ibrahim',
+                              15 : 'Al-Hijr',
+                              16 : 'An-Nahl',
+                              17 : 'Al-Israa',
+                              18 : 'Al-Kahf',
+                              19 : 'Maryam',
+                              20 : 'Ta-ha',
+                              21 : 'Al-Anbiyaa',
+                              22 : 'Al-Hajj',
+                              23 : 'Al-Muminun',
+                              24 : 'An-Nur',
+                              25 : 'Al-Furqan',
+                              26 : 'Ash-Shuaraa',
+                              27 : 'An-Naml',
+                              28 : 'Al-Qasas',
+                              29 : 'Al-Ankabut',
+                              30 : 'Ar-Rum',
+                              31 : 'Luqman',
+                              32 : 'As-Sajda',
+                              33 : 'Al-Ahzab',
+                              34 : 'Saba',
+                              35 : 'Fatir',
+                              36 : 'Ya-Sin',
+                              37 : 'As-Saffat',
+                              38 : 'Sad',
+                              39 : 'Az-Zumar',
+                              40 : 'Al-Mumin',
+                              41 : 'Ha-Mim',
+                              42 : 'Ash-Shura',
+                              43 : 'Az-Zukhruf',
+                              44 : 'Ad-Dukhan',
+                              45 : 'Al-Jathiya',
+                              46 : 'Al-Ahqaf',
+                              47 : 'Muhammad',
+                              48 : 'Al-Fat-h',
+                              49 : 'Al-Hujurat',
+                              50 : 'Qaf',
+                              51 : 'Az-Zariyat',
+                              52 : 'At-Tur',
+                              53 : 'An-Najm',
+                              54 : 'Al-Qamar',
+                              55 : 'Ar-Rahman',
+                              56 : 'Al-Waqia',
+                              57 : 'Al-Hadid',
+                              58 : 'Al-Mujadila',
+                              59 : 'Al-Hashr',
+                              60 : 'Al-Mumtahana',
+                              61 : 'As-Saff',
+                              62 : 'Al-Jamua',
+                              63 : 'Al-Munafiqun',
+                              64 : 'At-Tagabun',
+                              65 : 'At-Talaq',
+                              66 : 'At-Tahrim',
+                              67 : 'Al-Mulk',
+                              68 : 'Al-Qalam',
+                              69 : 'Al-Haqqa',
+                              70 : 'Al-Maarij',
+                              71 : 'Nuh',
+                              72 : 'Al-Jinn',
+                              73 : 'Al-Muzzammil',
+                              74 : 'Al-Muddaththir',
+                              75 : 'Al-Qiyamat',
+                              76 : 'Ad-Dahr',
+                              77 : 'Al-Mursalat',
+                              78 : 'An-Nabaa',
+                              79 : 'An-Naziat',
+                              80 : 'Abasa',
+                              81 : 'At-Takwir',
+                              82 : 'Al-Infitar',
+                              83 : 'Al-Mutaffifin',
+                              84 : 'Al-Inshiqaq',
+                              85 : 'Al-Buruj',
+                              86 : 'At-Tariq',
+                              87 : 'Al-Ala',
+                              88 : 'Al-Gashiya',
+                              89 : 'Al-Fajr',
+                              90 : 'Al-Balad',
+                              91 : 'Ash-Shams',
+                              92 : 'Al-Lail',
+                              93 : 'Adh-Dhuha',
+                              94 : 'Al-Sharh',
+                              95 : 'At-Tin',
+                              96 : 'Al-Alaq',
+                              97 : 'Al-Qadr',
+                              98 : 'Al-Baiyina',
+                              99 : 'Al-Zalzalah',
+                              100 : 'Al-Adiyat',
+                              101 : 'Al-Qaria',
+                              102 : 'At-Takathur',
+                              103 : 'Al-Asr',
+                              104 : 'Al-Humaza',
+                              105 : 'Al-Fil',
+                              106 : 'Quraish',
+                              107 : 'Al-Maun',
+                              108 : 'Al-Kauthar',
+                              109 : 'Al-Kafirun',
+                              110 : 'An-Nasr',
+                              111 : 'Al-Lahab',
+                              112 : 'Al-Ikhlaas',
+                              113 : 'Al-Falaq',
+                              114 : 'An-Nas',
+                              });
+        
+        SpinningWheel.setCancelAction(cancel);
+        SpinningWheel.setDoneAction(doneSurahSelection);
+        SpinningWheel.open();
+    }
+    
+    function doneSurahSelection() {
+        //alert('done pressed');
+        var results = SpinningWheel.getSelectedValues();
+        //$("#myButton").prev('a').find('span.ui-btn-text').text("new text 2");
+        $("#btnSelectSurah").prev('a').find('span.ui-btn-text').text("Surah:  " + results.values.join(' '));
+        surahIndex_recitations = results.keys.join(' ');
+        var surahIndex =surahIndex_recitations;
+        if(surahIndex == 1) {
+            $("#ayahValueTag").html("Please enter a value between 1-7.");
+        }
+        if(surahIndex == 2) {
+            $("#ayahValueTag").html("Please enter a value between 1-286.");
+        }
+        if(surahIndex == 3) {
+            $("#ayahValueTag").html("Please enter a value between 1-200.");
+        }
+        if(surahIndex == 4) {
+            $("#ayahValueTag").html("Please enter a value between 1-176.");
+        }
+        if(surahIndex == 5) {
+            $("#ayahValueTag").html("Please enter a value between 1-120.");
+        }
+        if(surahIndex == 6) {
+            $("#ayahValueTag").html("Please enter a value between 1-165.");
+        }
+        if(surahIndex == 7) {
+            $("#ayahValueTag").html("Please enter a value between 1-206.");
+        }
+        if(surahIndex == 8) {
+            $("#ayahValueTag").html("Please enter a value between 1-75.");
+        }
+        if(surahIndex == 9) {
+            $("#ayahValueTag").html("Please enter a value between 1-129.");
+        }
+        if(surahIndex == 10) {
+            $("#ayahValueTag").html("Please enter a value between 1-109.");
+        }
+        if(surahIndex == 11) {
+            $("#ayahValueTag").html("Please enter a value between 1-123.");
+        }
+        if(surahIndex == 12) {
+            $("#ayahValueTag").html("Please enter a value between 1-111.");
+        }
+        if(surahIndex == 13) {
+            $("#ayahValueTag").html("Please enter a value between 1-43.");
+        }
+        if(surahIndex == 14) {
+            $("#ayahValueTag").html("Please enter a value between 1-52.");
+        }
+        if(surahIndex == 15) {
+            $("#ayahValueTag").html("Please enter a value between 1-99.");
+        }
+        if(surahIndex == 16) {
+            $("#ayahValueTag").html("Please enter a value between 1-128.");
+        }
+        if(surahIndex == 17) {
+            $("#ayahValueTag").html("Please enter a value between 1-111.");
+        }
+        if(surahIndex == 18) {
+            $("#ayahValueTag").html("Please enter a value between 1-110.");
+        }
+        if(surahIndex == 19) {
+            $("#ayahValueTag").html("Please enter a value between 1-98.");
+        }
+        if(surahIndex == 20) {
+            $("#ayahValueTag").html("Please enter a value between 1-135.");
+        }
+        if(surahIndex == 21) {
+            $("#ayahValueTag").html("Please enter a value between 1-112.");
+        }
+        if(surahIndex == 22) {
+            $("#ayahValueTag").html("Please enter a value between 1-78.");
+        }
+        if(surahIndex == 23) {
+            $("#ayahValueTag").html("Please enter a value between 1-118.");
+        }
+        if(surahIndex == 24) {
+            $("#ayahValueTag").html("Please enter a value between 1-64.");
+        }
+        if(surahIndex == 25) {
+            $("#ayahValueTag").html("Please enter a value between 1-77.");
+        }
+        if(surahIndex == 26) {
+            $("#ayahValueTag").html("Please enter a value between 1-227.");
+        }
+        if(surahIndex == 27) {
+            $("#ayahValueTag").html("Please enter a value between 1-93.");
+        }
+        if(surahIndex == 28) {
+            $("#ayahValueTag").html("Please enter a value between 1-88.");
+        }
+        if(surahIndex == 29) {
+            $("#ayahValueTag").html("Please enter a value between 1-69.");
+        }
+        if(surahIndex == 30) {
+            $("#ayahValueTag").html("Please enter a value between 1-60.");
+        }
+        if(surahIndex == 31) {
+            $("#ayahValueTag").html("Please enter a value between 1-34.");
+        }
+        if(surahIndex == 32) {
+            $("#ayahValueTag").html("Please enter a value between 1-30.");
+        }
+        if(surahIndex == 33) {
+            $("#ayahValueTag").html("Please enter a value between 1-73.");
+        }
+        if(surahIndex == 34) {
+            $("#ayahValueTag").html("Please enter a value between 1-54.");
+        }
+        if(surahIndex == 35) {
+            $("#ayahValueTag").html("Please enter a value between 1-45.");
+        }
+        if(surahIndex == 36) {
+            $("#ayahValueTag").html("Please enter a value between 1-83.");
+        }
+        if(surahIndex == 37) {
+            $("#ayahValueTag").html("Please enter a value between 1-182.");
+        }
+        if(surahIndex == 38) {
+            $("#ayahValueTag").html("Please enter a value between 1-88.");
+        }
+        if(surahIndex == 39) {
+            $("#ayahValueTag").html("Please enter a value between 1-75.");
+        }
+        if(surahIndex == 40) {
+            $("#ayahValueTag").html("Please enter a value between 1-85.");
+        }
+        if(surahIndex == 41) {
+            $("#ayahValueTag").html("Please enter a value between 1-54.");
+        }
+        if(surahIndex == 42) {
+            $("#ayahValueTag").html("Please enter a value between 1-53.");
+        }
+        if(surahIndex == 43) {
+            $("#ayahValueTag").html("Please enter a value between 1-89.");
+        }
+        if(surahIndex == 44) {
+            $("#ayahValueTag").html("Please enter a value between 1-59.");
+        }
+        if(surahIndex == 45) {
+            $("#ayahValueTag").html("Please enter a value between 1-37.");
+        }
+        if(surahIndex == 46) {
+            $("#ayahValueTag").html("Please enter a value between 1-35.");
+        }
+        if(surahIndex == 47) {
+            $("#ayahValueTag").html("Please enter a value between 1-38.");
+        }
+        if(surahIndex == 48) {
+            $("#ayahValueTag").html("Please enter a value between 1-29.");
+        }
+        if(surahIndex == 49) {
+            $("#ayahValueTag").html("Please enter a value between 1-18.");
+        }
+        if(surahIndex == 50) {
+            $("#ayahValueTag").html("Please enter a value between 1-45.");
+        }
+        if(surahIndex == 51) {
+            $("#ayahValueTag").html("Please enter a value between 1-60.");
+        }
+        if(surahIndex == 52) {
+            $("#ayahValueTag").html("Please enter a value between 1-49.");
+        }
+        if(surahIndex == 53) {
+            $("#ayahValueTag").html("Please enter a value between 1-62.");
+        }
+        if(surahIndex == 54) {
+            $("#ayahValueTag").html("Please enter a value between 1-55.");
+        }
+        if(surahIndex == 55) {
+            $("#ayahValueTag").html("Please enter a value between 1-78.");
+        }
+        if(surahIndex == 56) {
+            $("#ayahValueTag").html("Please enter a value between 1-96.");
+        }
+        if(surahIndex == 57) {
+            $("#ayahValueTag").html("Please enter a value between 1-29.");
+        }
+        if(surahIndex == 58) {
+            $("#ayahValueTag").html("Please enter a value between 1-22.");
+        }
+        if(surahIndex == 59) {
+            $("#ayahValueTag").html("Please enter a value between 1-24.");
+        }
+        if(surahIndex == 60) {
+            $("#ayahValueTag").html("Please enter a value between 1-13.");
+        }
+        if(surahIndex == 61) {
+            $("#ayahValueTag").html("Please enter a value between 1-14.");
+        }
+        if(surahIndex == 62) {
+            $("#ayahValueTag").html("Please enter a value between 1-11.");
+        }
+        if(surahIndex == 63) {
+            $("#ayahValueTag").html("Please enter a value between 1-11.");
+        }
+        if(surahIndex == 64) {
+            $("#ayahValueTag").html("Please enter a value between 1-18.");
+        }
+        if(surahIndex == 65) {
+            $("#ayahValueTag").html("Please enter a value between 1-12.");
+        }
+        if(surahIndex == 66) {
+            $("#ayahValueTag").html("Please enter a value between 1-12.");
+        }
+        if(surahIndex == 67) {
+            $("#ayahValueTag").html("Please enter a value between 1-30.");
+        }
+        if(surahIndex == 68) {
+            $("#ayahValueTag").html("Please enter a value between 1-52.");
+        }
+        if(surahIndex == 69) {
+            $("#ayahValueTag").html("Please enter a value between 1-52.");
+        }
+        if(surahIndex == 70) {
+            $("#ayahValueTag").html("Please enter a value between 1-44.");
+        }
+        if(surahIndex == 71) {
+            $("#ayahValueTag").html("Please enter a value between 1-28.");
+        }
+        if(surahIndex == 72) {
+            $("#ayahValueTag").html("Please enter a value between 1-28.");
+        }
+        if(surahIndex == 73) {
+            $("#ayahValueTag").html("Please enter a value between 1-20.");
+        }
+        if(surahIndex == 74) {
+            $("#ayahValueTag").html("Please enter a value between 1-56.");
+        }
+        if(surahIndex == 75) {
+            $("#ayahValueTag").html("Please enter a value between 1-40.");
+        }
+        if(surahIndex == 76) {
+            $("#ayahValueTag").html("Please enter a value between 1-31.");
+        }
+        if(surahIndex == 77) {
+            $("#ayahValueTag").html("Please enter a value between 1-50.");
+        }
+        if(surahIndex == 78) {
+            $("#ayahValueTag").html("Please enter a value between 1-40.");
+        }
+        if(surahIndex == 79) {
+            $("#ayahValueTag").html("Please enter a value between 1-46.");
+        }
+        if(surahIndex == 80) {
+            $("#ayahValueTag").html("Please enter a value between 1-42.");
+        }
+        if(surahIndex == 81) {
+            $("#ayahValueTag").html("Please enter a value between 1-29.");
+        }
+        if(surahIndex == 82) {
+            $("#ayahValueTag").html("Please enter a value between 1-19.");
+        }
+        if(surahIndex == 83) {
+            $("#ayahValueTag").html("Please enter a value between 1-36.");
+        }
+        if(surahIndex == 84) {
+            $("#ayahValueTag").html("Please enter a value between 1-25.");
+        }
+        if(surahIndex == 85) {
+            $("#ayahValueTag").html("Please enter a value between 1-22.");
+        }
+        if(surahIndex == 86) {
+            $("#ayahValueTag").html("Please enter a value between 1-17.");
+        }
+        if(surahIndex == 87) {
+            $("#ayahValueTag").html("Please enter a value between 1-19.");
+        }
+        if(surahIndex == 88) {
+            $("#ayahValueTag").html("Please enter a value between 1-26.");
+        }
+        if(surahIndex == 89) {
+            $("#ayahValueTag").html("Please enter a value between 1-30.");
+        }
+        if(surahIndex == 90) {
+            $("#ayahValueTag").html("Please enter a value between 1-20.");
+        }
+        if(surahIndex == 91) {
+            $("#ayahValueTag").html("Please enter a value between 1-15.");
+        }
+        if(surahIndex == 92) {
+            $("#ayahValueTag").html("Please enter a value between 1-21.");
+        }
+        if(surahIndex == 93) {
+            $("#ayahValueTag").html("Please enter a value between 1-11.");
+        }
+        if(surahIndex == 94) {
+            $("#ayahValueTag").html("Please enter a value between 1-8.");
+        }
+        if(surahIndex == 95) {
+            $("#ayahValueTag").html("Please enter a value between 1-8.");
+        }
+        if(surahIndex == 96) {
+            $("#ayahValueTag").html("Please enter a value between 1-19.");
+        }
+        if(surahIndex == 97) {
+            $("#ayahValueTag").html("Please enter a value between 1-5.");
+        }
+        if(surahIndex == 98) {
+            $("#ayahValueTag").html("Please enter a value between 1-8.");
+        }
+        if(surahIndex == 99) {
+            $("#ayahValueTag").html("Please enter a value between 1-8.");
+        }
+        if(surahIndex == 100) {
+            $("#ayahValueTag").html("Please enter a value between 1-11.");
+        }
+        if(surahIndex == 101) {
+            $("#ayahValueTag").html("Please enter a value between 1-11.");
+        }
+        if(surahIndex == 102) {
+            $("#ayahValueTag").html("Please enter a value between 1-8.");
+        }
+        if(surahIndex == 103) {
+            $("#ayahValueTag").html("Please enter a value between 1-3.");
+        }
+        if(surahIndex == 104) {
+            $("#ayahValueTag").html("Please enter a value between 1-9.");
+        }
+        if(surahIndex == 105) {
+            $("#ayahValueTag").html("Please enter a value between 1-5.");
+        }
+        if(surahIndex == 106) {
+            $("#ayahValueTag").html("Please enter a value between 1-4.");
+        }
+        if(surahIndex == 107) {
+            $("#ayahValueTag").html("Please enter a value between 1-7.");
+        }
+        if(surahIndex == 108) {
+            $("#ayahValueTag").html("Please enter a value between 1-3.");
+        }
+        if(surahIndex == 109) {
+            $("#ayahValueTag").html("Please enter a value between 1-6.");
+        }
+        if(surahIndex == 110) {
+            $("#ayahValueTag").html("Please enter a value between 1-3.");
+        }
+        if(surahIndex == 111) {
+            $("#ayahValueTag").html("Please enter a value between 1-5.");
+        }
+        if(surahIndex == 112) {
+            $("#ayahValueTag").html("Please enter a value between 1-4.");
+        }
+        if(surahIndex == 113) {
+            $("#ayahValueTag").html("Please enter a value between 1-5.");
+        }
+        if(surahIndex == 114) {
+            $("#ayahValueTag").html("Please enter a value between 1-6.");
+        }
+    }
+    
+    function cancel() {
+        //document.getElementById('result').innerHTML = 'cancelled!';
+    }
+    </script>
+        
+
+</html>

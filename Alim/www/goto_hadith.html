@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>goto_hadith</title>
+		<meta name="description" content="" />
+		<meta name="author" content="Manish" />
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
+		<script type="text/javascript" src="sw/spinningwheel.js"></script>
+		<link rel="stylesheet" href="sw/spinningwheel.css" />
+		<script type="text/javascript" src="js/jquery.mobile-1.0a1.min.js"></script>
+		<link rel="stylesheet" href="css/jquery.mobile-1.0a1.min.css" />
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript">
+			// If you want to prevent dragging, uncomment this section
+
+			function preventBehavior(e) {
+				e.preventDefault();
+			};
+
+
+			document.addEventListener("touchmove", preventBehavior, false);
+
+			/* If you are supporting your own protocol, the var invokeString will contain any arguments to the app launch.
+			 see http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
+			 for more details -jm */
+			/*
+			 function handleOpenURL(url)
+			 {
+			 // TODO: do something with the url passed in.
+			 }
+			 */
+			
+
+			function onBodyLoad() {
+				document.addEventListener("deviceready", onDeviceReady, false);
+			}
+
+			/* When this function is called, PhoneGap has been initialized and is ready to roll */
+			/* If you are supporting your own protocol, the var invokeString will contain any arguments to the app launch.
+			 see http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
+			 for more details -jm */
+			function onDeviceReady() {
+				// do your thing!
+				//navigator.notification.alert("PhoneGap is working")
+			}
+		</script>
+	</head>
+	<body style="background-image:url(images/alimorgbottomtile.jpg)">
+		<div data-role="page" style="background-image:url(images/alimorgbottomtile.jpg)" id="goto-hadith-module">
+			<div data-role="header" data-theme="a">
+				<a href=" javascript: history.go(-1);" rel="external" data-theme="b">Back</a>
+				<h1>GoTo Hadith</h1>
+			</div>
+			<div data-role="content" style="text-align: center">
+				<fieldset data-role="controlgroup" >
+					<input type="button" data-theme="b" value="Book of Hadiths" id="hadithBookBtn" onclick="getHadithBook()">
+					</input>
+					<input type="button" data-theme="b" value="Volume of Hadith"  id="hadithVolumeBtn" onclick="getHadithVolume()">
+					</input>
+				</fieldset>
+				<div id="hadithNumberCount" style="text-shadow:none; color:#000000">
+					--
+				</div>
+				<input type="text" name="surah_ayah" data-theme="b" id="surah_ayah_value" placeholder="Hadith Number" >
+				</input>
+				<br/>
+				<br/>
+				<input type="button" value="Go" data-theme="b" id="GoBtn" onClick="goPressed();">
+				</input>
+			</div>
+		</div>
+	</body>
+	<script>
+		function getHadithBook() {
+
+			SpinningWheel.addSlot({
+				1 : 'Abu-Dawood',
+				2 : 'Sahih Al-Bukhari',
+				3 : 'Al-Muwatta',
+				4 : 'Al-Qudsi',
+				5 : 'Al-Tirmidhi',
+				6 : 'Sahih Muslim',
+				7 : 'Fiqh -us-Sunnah'
+			});
+			SpinningWheel.setDoneAction(getHadithSpinningWheel);
+			SpinningWheel.setCancelAction(cancel);
+			SpinningWheel.open();
+
+		}
+
+		function getHadithSpinningWheel() {
+			var results = SpinningWheel.getSelectedValues();
+			//$("#myButton").prev('a').find('span.ui-btn-text').text("new text 2");
+			currentHadithBookIndex = results.keys.join(' ');
+			$("#hadithBookBtn").prev('a').find('span.ui-btn-text').text("" + results.values.join(' '));
+			$("#hadithVolumeBtn").prev('a').find('span.ui-btn-text').text('Volume of Hadith');
+		}
+
+		function cancel() {
+
+		}
+
+		function getHadithVolume() {
+
+			if(currentHadithBookIndex == null) {
+				alert('Please select a Hadith book.');
+			} else {
+				if(currentHadithBookIndex == 1) {
+					SpinningWheel.addSlot({
+						1 : 'Volume of Hadith',
+
+					});
+				}
+				if(currentHadithBookIndex == 2) {
+					SpinningWheel.addSlot({
+						1 : 'Volume 1 of Hadith',
+						2 : 'Volume 2 of Hadith',
+						3 : 'Volume 3 of Hadith',
+						4 : 'Volume 4 of Hadith',
+						5 : 'Volume 5 of Hadith',
+						6 : 'Volume 6 of Hadith',
+						7 : 'Volume 7 of Hadith',
+						8 : 'Volume 8 of Hadith',
+						9 : 'Volume 9 of Hadith'
+					});
+				}
+
+				if(currentHadithBookIndex == 3) {
+					SpinningWheel.addSlot({
+						1 : 'Volume 1 of Hadith',
+						2 : 'Volume 2 of Hadith',
+						3 : 'Volume 3 of Hadith',
+						4 : 'Volume 4 of Hadith',
+						5 : 'Volume 5 of Hadith',
+						6 : 'Volume 6 of Hadith',
+						7 : 'Volume 7 of Hadith',
+						8 : 'Volume 8 of Hadith',
+						9 : 'Volume 9 of Hadith',
+						10 : 'Volume 10 of Hadith',
+						11 : 'Volume 11 of Hadith',
+						12 : 'Volume 12 of Hadith',
+						13 : 'Volume 13 of Hadith',
+						14 : 'Volume 14 of Hadith',
+						15 : 'Volume 15 of Hadith',
+						16 : 'Volume 16 of Hadith',
+						17 : 'Volume 17 of Hadith',
+						18 : 'Volume 18 of Hadith',
+						19 : 'Volume 19 of Hadith',
+						20 : 'Volume 20 of Hadith',
+						21 : 'Volume 21 of Hadith',
+						22 : 'Volume 22 of Hadith',
+						23 : 'Volume 23 of Hadith',
+						24 : 'Volume 24 of Hadith',
+						25 : 'Volume 25 of Hadith',
+						26 : 'Volume 26 of Hadith',
+						27 : 'Volume 27 of Hadith',
+						28 : 'Volume 28 of Hadith',
+						29 : 'Volume 29 of Hadith',
+						30 : 'Volume 30 of Hadith',
+						31 : 'Volume 31 of Hadith',
+						32 : 'Volume 32 of Hadith',
+						33 : 'Volume 33 of Hadith',
+						34 : 'Volume 34 of Hadith',
+						35 : 'Volume 35 of Hadith',
+						36 : 'Volume 36 of Hadith',
+						37 : 'Volume 37 of Hadith',
+						38 : 'Volume 38 of Hadith',
+						39 : 'Volume 39 of Hadith',
+						40 : 'Volume 40 of Hadith',
+						41 : 'Volume 41 of Hadith',
+						42 : 'Volume 42 of Hadith',
+						43 : 'Volume 43 of Hadith',
+						44 : 'Volume 44 of Hadith',
+						45 : 'Volume 45 of Hadith',
+						46 : 'Volume 46 of Hadith',
+						47 : 'Volume 47 of Hadith',
+						48 : 'Volume 48 of Hadith',
+						49 : 'Volume 49 of Hadith',
+						50 : 'Volume 50 of Hadith',
+						51 : 'Volume 51 of Hadith',
+						52 : 'Volume 52 of Hadith',
+						53 : 'Volume 53 of Hadith',
+						54 : 'Volume 54 of Hadith',
+						55 : 'Volume 55 of Hadith',
+						56 : 'Volume 56 of Hadith',
+						57 : 'Volume 57 of Hadith',
+						58 : 'Volume 58 of Hadith',
+						59 : 'Volume 59 of Hadith',
+						60 : 'Volume 60 of Hadith',
+						61 : 'Volume 61 of Hadith'
+					});
+				}
+
+				if(currentHadithBookIndex == 4) {
+					SpinningWheel.addSlot({
+						1 : 'Volume  of Hadith',
+
+					});
+				}
+				if(currentHadithBookIndex == 5) {
+					SpinningWheel.addSlot({
+						1 : 'Volume  of Hadith',
+
+					});
+				}
+				if(currentHadithBookIndex == 6) {
+					SpinningWheel.addSlot({
+						1 : 'Volume of Hadith',
+
+					});
+				}
+				if(currentHadithBookIndex == 7) {
+					SpinningWheel.addSlot({
+						1 : 'Volume 1 of Hadith',
+						2 : 'Volume 2 of Hadith',
+						3 : 'Volume 3 of Hadith',
+						4 : 'Volume 4 of Hadith',
+						5 : 'Volume 5 of Hadith',
+
+					});
+				}
+
+				SpinningWheel.setDoneAction(getVolumeSpinningWheel);
+				SpinningWheel.setCancelAction(cancel);
+				SpinningWheel.open();
+			}
+
+		}
+
+		function getVolumeSpinningWheel() {
+			var results = SpinningWheel.getSelectedValues();
+			//$("#myButton").prev('a').find('span.ui-btn-text').text("new text 2");
+			//currentHadithBookIndex = results.values.join(' ');
+
+			currentHadithVolumeIndex = results.keys.join(' ');
+			$("#hadithVolumeBtn").prev('a').find('span.ui-btn-text').text(results.values.join(' '));
+			if(currentHadithBookIndex == 1) {
+				$('#hadithNumberCount').html("Please enter a value between 1-2517");
+				currentHadithVolumeIndex = "";
+			}
+			if(currentHadithBookIndex == 2) {
+				if(currentHadithVolumeIndex == 1) {
+					$('#hadithNumberCount').html("Please enter a value between 1-832");
+				}
+				if(currentHadithVolumeIndex == 2) {
+					$('#hadithNumberCount').html("Please enter a value between 1-823");
+				}
+				if(currentHadithVolumeIndex == 3) {
+					$('#hadithNumberCount').html("Please enter a value between 1-895");
+				}
+				if(currentHadithVolumeIndex == 4) {
+					$('#hadithNumberCount').html("Please enter a value between 1-841");
+				}
+				if(currentHadithVolumeIndex == 5) {
+					$('#hadithNumberCount').html("Please enter a value between 1-749");
+				}
+				if(currentHadithVolumeIndex == 6) {
+					$('#hadithNumberCount').html("Please enter a value between 1-582");
+				}
+				if(currentHadithVolumeIndex == 7) {
+					$('#hadithNumberCount').html("Please enter a value between 1-852");
+				}
+				if(currentHadithVolumeIndex == 8) {
+					$('#hadithNumberCount').html("Please enter a value between 1-842");
+				}
+				if(currentHadithVolumeIndex == 9) {
+					$('#hadithNumberCount').html("Please enter a value between 1-652");
+				}
+			}
+			if(currentHadithBookIndex == 3) {
+				if(currentHadithVolumeIndex == 1) {
+					$('#hadithNumberCount').html("Please enter a value between 1-31");
+				}
+				if(currentHadithVolumeIndex == 2) {
+					$('#hadithNumberCount').html("Please enter a value between 1-117");
+				}
+				if(currentHadithVolumeIndex == 3) {
+					$('#hadithNumberCount').html("Please enter a value between 1-75");
+				}
+				if(currentHadithVolumeIndex == 4) {
+					$('#hadithNumberCount').html("Please enter a value between 1-3");
+				}
+				if(currentHadithVolumeIndex == 5) {
+					$('#hadithNumberCount').html("Please enter a value between 1-23");
+				}
+				if(currentHadithVolumeIndex == 6) {
+					$('#hadithNumberCount').html("Please enter a value between 1-8");
+				}
+				if(currentHadithVolumeIndex == 7) {
+					$('#hadithNumberCount').html("Please enter a value between 1-33");
+				}
+				if(currentHadithVolumeIndex == 8) {
+					$('#hadithNumberCount').html("Please enter a value between 1-39");
+				}
+				if(currentHadithVolumeIndex == 9) {
+					$('#hadithNumberCount').html("Please enter a value between 1-98");
+				}
+				if(currentHadithVolumeIndex == 10) {
+					$('#hadithNumberCount').html("Please enter a value between 1-14");
+				}
+				if(currentHadithVolumeIndex == 11) {
+					$('#hadithNumberCount').html("Please enter a value between 1-4");
+				}
+				if(currentHadithVolumeIndex == 12) {
+					$('#hadithNumberCount').html("Please enter a value between 1-4");
+				}
+				if(currentHadithVolumeIndex == 13) {
+					$('#hadithNumberCount').html("Please enter a value between 1-6");
+				}
+				if(currentHadithVolumeIndex == 14) {
+					$('#hadithNumberCount').html("Please enter a value between 1-15");
+				}
+				if(currentHadithVolumeIndex == 15) {
+					$('#hadithNumberCount').html("Please enter a value between 1-50");
+				}
+				if(currentHadithVolumeIndex == 16) {
+					$('#hadithNumberCount').html("Please enter a value between 1-58");
+				}
+				if(currentHadithVolumeIndex == 17) {
+					$('#hadithNumberCount').html("Please enter a value between 1-58");
+				}
+				if(currentHadithVolumeIndex == 18) {
+					$('#hadithNumberCount').html("Please enter a value between 1-60");
+				}
+				if(currentHadithVolumeIndex == 19) {
+					$('#hadithNumberCount').html("Please enter a value between 1-17");
+				}
+				if(currentHadithVolumeIndex == 20) {
+					$('#hadithNumberCount').html("Please enter a value between 1-264");
+				}
+				if(currentHadithVolumeIndex == 21) {
+					$('#hadithNumberCount').html("Please enter a value between 1-51");
+				}
+				if(currentHadithVolumeIndex == 22) {
+					$('#hadithNumberCount').html("Please enter a value between 1-17");
+				}
+				if(currentHadithVolumeIndex == 23) {
+					$('#hadithNumberCount').html("Please enter a value between 1-13");
+				}
+				if(currentHadithVolumeIndex == 24) {
+					$('#hadithNumberCount').html("Please enter a value between 1-9");
+				}
+				if(currentHadithVolumeIndex == 25) {
+					$('#hadithNumberCount').html("Please enter a value between 1-19");
+				}
+				if(currentHadithVolumeIndex == 26) {
+					$('#hadithNumberCount').html("Please enter a value between 1-17");
+				}
+				if(currentHadithVolumeIndex == 27) {
+					$('#hadithNumberCount').html("Please enter a value between 1-16");
+				}
+				if(currentHadithVolumeIndex == 28) {
+					$('#hadithNumberCount').html("Please enter a value between 1-57");
+				}
+				if(currentHadithVolumeIndex == 29) {
+					$('#hadithNumberCount').html("Please enter a value between 1-109");
+				}
+				if(currentHadithVolumeIndex == 30) {
+					$('#hadithNumberCount').html("Please enter a value between 1-17");
+				}
+				if(currentHadithVolumeIndex == 31) {
+					$('#hadithNumberCount').html("Please enter a value between 1-102");
+				}
+				if(currentHadithVolumeIndex == 32) {
+					$('#hadithNumberCount').html("Please enter a value between 1-16");
+				}
+				if(currentHadithVolumeIndex == 33) {
+					$('#hadithNumberCount').html("Please enter a value between 1-3");
+				}
+				if(currentHadithVolumeIndex == 34) {
+					$('#hadithNumberCount').html("Please enter a value between 1-5");
+				}
+				if(currentHadithVolumeIndex == 35) {
+					$('#hadithNumberCount').html("Please enter a value between 1-4");
+				}
+				if(currentHadithVolumeIndex == 36) {
+					$('#hadithNumberCount').html("Please enter a value between 1-54");
+				}
+				if(currentHadithVolumeIndex == 37) {
+					$('#hadithNumberCount').html("Please enter a value between 1-9");
+				}
+				if(currentHadithVolumeIndex == 38) {
+					$('#hadithNumberCount').html("Please enter a value between 1-25");
+				}
+				if(currentHadithVolumeIndex == 39) {
+					$('#hadithNumberCount').html("Please enter a value between 1-15");
+				}
+				if(currentHadithVolumeIndex == 40) {
+					$('#hadithNumberCount').html("Please enter a value between 1-8");
+				}
+				if(currentHadithVolumeIndex == 41) {
+					$('#hadithNumberCount').html("Please enter a value between 1-35");
+				}
+				if(currentHadithVolumeIndex == 42) {
+					$('#hadithNumberCount').html("Please enter a value between 1-15");
+				}
+				if(currentHadithVolumeIndex == 43) {
+					$('#hadithNumberCount').html("Please enter a value between 1-15");
+				}
+				if(currentHadithVolumeIndex == 44) {
+					$('#hadithNumberCount').html("Please enter a value between 1-2");
+				}
+				if(currentHadithVolumeIndex == 45) {
+					$('#hadithNumberCount').html("Please enter a value between 1-26");
+				}
+				if(currentHadithVolumeIndex == 46) {
+					$('#hadithNumberCount').html("Please enter a value between 1-10");
+				}
+				if(currentHadithVolumeIndex == 47) {
+					$('#hadithNumberCount').html("Please enter a value between 1-18");
+				}
+				if(currentHadithVolumeIndex == 48) {
+					$('#hadithNumberCount').html("Please enter a value between 1-19");
+				}
+				if(currentHadithVolumeIndex == 49) {
+					$('#hadithNumberCount').html("Please enter a value between 1-39");
+				}
+				if(currentHadithVolumeIndex == 50) {
+					$('#hadithNumberCount').html("Please enter a value between 1-18");
+				}
+				if(currentHadithVolumeIndex == 51) {
+					$('#hadithNumberCount').html("Please enter a value between 1-16");
+				}
+				if(currentHadithVolumeIndex == 52) {
+					$('#hadithNumberCount').html("Please enter a value between 1-7");
+				}
+				if(currentHadithVolumeIndex == 53) {
+					$('#hadithNumberCount').html("Please enter a value between 1-6");
+				}
+				if(currentHadithVolumeIndex == 54) {
+					$('#hadithNumberCount').html("Please enter a value between 1-44");
+				}
+				if(currentHadithVolumeIndex == 55) {
+					$('#hadithNumberCount').html("Please enter a value between 1-3");
+				}
+				if(currentHadithVolumeIndex == 56) {
+					$('#hadithNumberCount').html("Please enter a value between 1-28");
+				}
+				if(currentHadithVolumeIndex == 57) {
+					$('#hadithNumberCount').html("Please enter a value between 1-2");
+				}
+				if(currentHadithVolumeIndex == 58) {
+					$('#hadithNumberCount').html("Please enter a value between 1-15");
+				}
+				if(currentHadithVolumeIndex == 59) {
+					$('#hadithNumberCount').html("Please enter a value between 1-1");
+				}
+				if(currentHadithVolumeIndex == 60) {
+					$('#hadithNumberCount').html("Please enter a value between 1-1");
+				}
+				if(currentHadithVolumeIndex == 61) {
+					$('#hadithNumberCount').html("Please enter a value between 1-1");
+				}
+			}
+			if(currentHadithBookIndex == 4) {
+				currentHadithVolumeIndex = "";
+				$('#hadithNumberCount').html("Please enter a value between 1-40");
+			}
+			if(currentHadithBookIndex == 5) {
+				currentHadithVolumeIndex = "";
+				$('#hadithNumberCount').html("Please enter a value between 1-1691");
+			}
+			if(currentHadithBookIndex == 6) {
+				currentHadithVolumeIndex = "";
+				$('#hadithNumberCount').html("Please enter a value between 1-1415");
+			}
+			if(currentHadithBookIndex == 7) {
+				if(currentHadithVolumeIndex == 1) {
+					$('#hadithNumberCount').html("Please enter a value between 1-164");
+				}
+				if(currentHadithVolumeIndex == 2) {
+					$('#hadithNumberCount').html("Please enter a value between 1-154");
+				}
+				if(currentHadithVolumeIndex == 3) {
+					$('#hadithNumberCount').html("Please enter a value between 1-156");
+				}
+				if(currentHadithVolumeIndex == 4) {
+					$('#hadithNumberCount').html("Please enter a value between 1-149");
+				}
+				if(currentHadithVolumeIndex == 5) {
+					$('#hadithNumberCount').html("Please enter a value between 1-136");
+				}
+			}
+		}
+
+		function getHadithNumber() {
+			if(currentHadithVolumeIndex == null) {
+				alert('Please select a hadith Vulume');
+			} else {
+				//alert(currentHadithVolumeIndex);
+				var arrlist = [];
+
+				for( i = 1; i <= 5; i++) {
+					arrlist.push("Number" + i);
+				}
+				SpinningWheel.addSlot(arrlist, '', 1);
+				/**
+				 SpinningWheel.addSlot({
+				 1 : 'Number 1',
+				 2 : 'Number 2',
+				 3 : 'Number 3',
+				 4 : 'Number 4',
+				 5 : 'Number 5',
+				 6 : 'Number 6',
+				 7 : 'Number 7'
+				 });
+				 **/
+				//alert(obj);
+				//SpinningWheel.addSlot({obj});
+				SpinningWheel.setDoneAction(getNumberSpinningWheel);
+				SpinningWheel.setCancelAction(cancel);
+				SpinningWheel.open();
+			}
+		}
+
+		function getNumberSpinningWheel() {
+			var results = SpinningWheel.getSelectedValues();
+			//$("#myButton").prev('a').find('span.ui-btn-text').text("new text 2");
+			$("#hadithNumberBtn").prev('a').find('span.ui-btn-text').text(results.values.join(' '));
+		}
+	// Writing the method here as to write a cookie.
+		function setCookie(c_name, value, exdays) {
+			var exdate = new Date();
+			exdate.setDate(exdate.getDate() + exdays);
+			var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+			document.cookie = c_name + "=" + c_value;
+		}
+		function goPressed() {
+			currentHadithNumberIndex = $('#surah_ayah_value').val();
+			if(currentHadithNumberIndex == "") {
+				alert('Please enter a Hadith number.');
+			}else{
+				
+				var hadithMaxCountString = $('#hadithNumberCount').text();
+                var hadithmaxCountArray = hadithMaxCountString.split(/-/);  
+                setCookie("hadithMaxCount" ,hadithmaxCountArray[1],1 );               
+                setCookie("hadithBookNumber" ,currentHadithBookIndex,1 );
+				setCookie("hadithVolume" ,currentHadithVolumeIndex,1 );
+				setCookie("hadithNumber" ,currentHadithNumberIndex,1 );
+				
+				window.location.href = "hadith_results.html";
+			}
+			
+		}
+	</script>
+</html>

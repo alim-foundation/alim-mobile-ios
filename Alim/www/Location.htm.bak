@@ -1,0 +1,72 @@
+﻿<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta name="viewport" content="width=320; user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>PhoneGap</title>
+	  <link rel="stylesheet" href="master.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	  <script type="text/javascript" charset="utf-8" src="phonegap-1.1.0.js"></script>
+	  <script type="text/javascript" charset="utf-8" src="main.js"></script>
+	  <style>
+	  	div
+	  	{
+	  	color:gray;
+	  	}
+	  </style>
+
+  </head>
+<body style="background-color:#0997DF;color:White;font-size:small;font-weight:bold;height:100%" onLoad="init();" height=1000px>
+<center>
+<table border="1" style="height:100%" height="1000px">
+<tr>
+<td>
+    <img src="images/header.png" />
+</td>
+</tr>
+<tr>
+<td>
+   <table width=100%>
+    <tr>
+        <td style="text-align:center">Service Center Locator</td>        
+    </tr>
+   </table> 
+</td>
+</tr>
+<tr>
+    <td>
+    <table width="100%" height="100px" cellpadding=5px  style="background-color:#ffffff">
+        <tr><td style="background-color:#EBEBEC;color:#000000" >Bosch Car Service</td></tr>
+        <tr>
+        <td><select id="statesNameDropDown" onchange="stateChange(this)"></select>
+      </tr>
+      <tr>
+      <td>
+		<div id="divCities" >
+        <select id="citiesNameDropDown" onchange="selectCity(this)"></select></div>
+      </td>
+      </tr>
+      <tr>
+        <td><div id="dealerDetails"><select id="dealerNameDropDown" onchange="selectDealer(this)"></select></div></td>
+      </tr>
+        </td>
+        </tr>
+        <tr><td valign=top>
+        <div id="dealer_Name_Div"></div>
+      <div id="dealerAddress_Line_1_Div"></div>
+      <div id="dealerAddress_Line_2_Div"></div>
+      <div id="dealer_city_Div"></div>
+      <div id="dealer_state_Div"></div>
+      <div id="dealer_pincode_Div"></div>
+      <div id="dealer_contact_person_Div"></div>
+      <div id="dealer_phone_number_NameDiv"></div>
+      <div id="dealer_alternate_number_NameDiv"></div>
+      <div id="dealer_email_Div"></div>
+      <div id="dealer_description_Div"></div>
+      <div id="dealer_services_offered_Div"></div>
+        </td>        
+        </tr>
+    
+</table>
+</center>
+</body>
+</html>
